@@ -4,7 +4,7 @@
       Search term:
       <input type="text" formControlName="term">
     </label>
-    <button type="submit" [disabled]="!searchForm.valid">Search</button>
+    <button type="submit" [disabled ]="!searchForm.valid">Search</button>
   </form>
   <div *ngIf="searched">
     <app-search-result [results]="searchResults"></app-search-result>

@@ -1,0 +1,6 @@
+<div *ngFor="let result of results">
+  <h2>{{ result.title }}</h2>
+  <p>{{ result.description }}</p>
+  <p *ngIf="result.cached">Retrieved from cache</p>
+  <p *ngIf="!result.cached">Retrieved from API</p>
+</div>

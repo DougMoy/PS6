@@ -1,9 +1,14 @@
-
-
-<button (click)="fetchJokes()">Fetch Jokes</button>
-<div *ngIf="showJokes">
-  <div *ngFor="let joke of jokes">
-    <h3>{{ joke.setup }}</h3>
-    <p>{{ joke.punchline }}</p>
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <label>
+      Search term:
+      <input type="text" formControlName="term">
+    </label>
+    <button type="submit" [disabled]="!searchForm.valid">Search</button>
+  </form>
+  <div *ngIf="searched">
+    <app-search-result [results]="searchResults"></app-search-result>
   </div>
 </div>
+
+

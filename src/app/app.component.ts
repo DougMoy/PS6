@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import * as mockData from './joke.json';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,23 @@ import * as mockData from './joke.json';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'PS6';
-  jokes: any = (mockData as any).default.body;
+  searchForm: FormGroup;
+  searchResults: any[] = [];
+  searched = false;
+  title: String;
 
-  showJokes: boolean = false;
+  constructor(private formBuilder: FormBuilder, private apiService: ApiService) {
+    this.searchForm = this.formBuilder.group({
+      term: ['', Validators.minLength(2)]
+    });
+    this.title = "jokes";
+  }
 
-  fetchJokes() {
-    this.showJokes = !this.showJokes;
+  onSubmit() {
+    const term = this.searchForm.controls['term'].value;
+    this.apiService.search(term).subscribe(results => {
+      this.searchResults = results;
+      this.searched = true;
+    });
   }
 }
